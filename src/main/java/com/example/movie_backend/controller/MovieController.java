@@ -48,7 +48,7 @@ public class MovieController {
     public ResponseEntity<Movie> registerMovie(@RequestBody Movie movie) {
         
         try {
-            Movie regMovie = movieService.saveMovie(movie);
+            Movie regMovie = movieService.regMovie(movie);
             return new ResponseEntity<>(regMovie, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace for debugging
