@@ -1,35 +1,36 @@
 package com.example.movie_backend.controller;
 import java.util.List;
+import com.example.movie_backend.entity.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.movie_backend.service.DirectorService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.movie_backend.entity.Actor;
-import com.example.movie_backend.service.ActorService;
+
 
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/actors")
+@RequestMapping("/api/directors")
 
-public class ActorController {
-    
+public class DirectorController {
+
     @Autowired
-    private ActorService actorService;
+    private DirectorService directorService;
 
-    //fetch all actor
+    //fetch all director
     @GetMapping
-    public ResponseEntity <List<Actor>> getAllActors(){
+    public ResponseEntity<List<Director>> getAllDirectors() {
         try {
-            List<Actor> actors = this.actorService.getAllActors();
-            if(actors != null){
-                return new ResponseEntity<>(actors,HttpStatus.OK);
+            List<Director> directors = this.directorService.getAllDirectors();
+            if (directors != null) {
+                return new ResponseEntity<>(directors,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
             }
@@ -39,13 +40,13 @@ public class ActorController {
         }
     }
 
-    //fetch actor by Id
+    //fetch director by Id
     @GetMapping("/{id}")
-    public ResponseEntity<Actor> getMethodName(@PathVariable Long id) {
+    public ResponseEntity<Director> getDirectorById(@PathVariable Long id) {
         try {
-            Actor actor = this.actorService.getActorById(id);
-            if(actor != null){
-                return new ResponseEntity<>(actor,HttpStatus.OK);
+            Director director = this.directorService.getDirectorById(id);
+            if (director != null) {
+                return new ResponseEntity<>(director,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
             }
@@ -55,14 +56,13 @@ public class ActorController {
         }
     }
     
-
-    //register actor info
+    //register director info
     @PostMapping
-    public ResponseEntity <Actor> registerActor(@RequestBody Actor actor){
+    public ResponseEntity<Director> registerDirector(@RequestBody Director director) {
         try {
-            Actor regActor = this.actorService.regActor(actor);
-            if(regActor != null){
-                return new ResponseEntity<>(regActor,HttpStatus.OK);
+            Director regDirector = this.directorService.regDirector(director);
+            if (regDirector != null) {
+                return new ResponseEntity<>(regDirector,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
             }
@@ -71,4 +71,7 @@ public class ActorController {
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
+
 }
