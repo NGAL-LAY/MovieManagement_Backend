@@ -8,6 +8,8 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "movies")
 public class Movie {
@@ -18,7 +20,8 @@ public class Movie {
 
     private String name;
     private String type;
-    private LocalDate year;
+    @JsonProperty("year") 
+    private String year;
 
     // Getters and Setters
     public Long getId() {
@@ -45,11 +48,11 @@ public class Movie {
         this.type = type;
     }
 
-    public LocalDate getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(LocalDate year) {
+    public void setYear(String year) {
         this.year = year;
     }
 }

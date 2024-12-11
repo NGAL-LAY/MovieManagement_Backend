@@ -1,10 +1,7 @@
 package com.example.movie_backend.controller;
-
 import com.example.movie_backend.entity.Movie;
 import com.example.movie_backend.service.MovieService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +44,7 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<Movie> registerMovie(@RequestBody Movie movie) {
         
+        System.out.println("Data from frontend" + movie.getYear()); 
         try {
             Movie regMovie = movieService.regMovie(movie);
             return new ResponseEntity<>(regMovie, HttpStatus.CREATED);
