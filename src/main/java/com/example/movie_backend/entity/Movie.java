@@ -20,7 +20,6 @@ public class Movie {
 
     private String name;
     private String type;
-    @JsonProperty("year") 
     private String year;
 
     // Getters and Setters
