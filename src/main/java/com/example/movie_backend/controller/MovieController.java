@@ -34,10 +34,10 @@ public class MovieController {
     }
 
     // Fetch Movie by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+    @GetMapping("/{name}")
+    public ResponseEntity<Movie> getMovieById(@PathVariable String name) {
         try {
-            Movie movie = movieService.getMovieById(id);
+            Movie movie = movieService.getMovieByName(name);
             if(movie != null){
                 return new ResponseEntity<>(movie, HttpStatus.OK);
             }else{
@@ -69,13 +69,8 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMovieById(@PathVariable Long id) {
         try {
-            Movie deleteMovie = movieService.getMovieById(id);
-            if(deleteMovie != null){
                 movieService.delMovieById(id);
                 return new ResponseEntity<>(null,HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            }
         }catch (Exception e) {
             e.printStackTrace(); 
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,7 +81,7 @@ public class MovieController {
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovieById(@PathVariable Long id, @RequestBody Movie updateMovie) {
         try {
-            Movie existMovie = movieService.getMovieById(id);
+            Movie existMovie = movieService.getMovieByName(updateMovie.getName());
             if (existMovie != null) {
                 Movie updatedMovie = this.movieService.updMovieById(id, updateMovie);
                 return new ResponseEntity<>(updatedMovie, HttpStatus.CREATED);
