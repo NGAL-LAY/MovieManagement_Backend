@@ -22,6 +22,11 @@ public class MovieService {
         return movieRepository.findByName(Name).orElse(null);
     }
 
+    // get movie by id
+    public Movie getMovieById(Long Id) {
+        return movieRepository.findById(Id).orElse(null);
+    }
+
     // register movie
     public Movie regMovie(Movie movie) {
         return movieRepository.save(movie);
@@ -43,18 +48,21 @@ public class MovieService {
     public Movie updMovieById(Long id, Movie updateMovie){
 
         Optional<Movie> existingMovieOptional = movieRepository.findById(id);
+        if(existingMovieOptional.isPresent()){
         Movie existMovie = existingMovieOptional.get();
-
-        if(updateMovie.getName() != null){
-            existMovie.setName(updateMovie.getName());
+            if(updateMovie.getName() != null){
+                existMovie.setName(updateMovie.getName());
+            }
+            if(updateMovie.getType() != null){
+                existMovie.setType(updateMovie.getType());
+            }
+            if(updateMovie.getYear() != null)
+            {
+                existMovie.setYear(updateMovie.getYear());
+            }
+            return movieRepository.save(existMovie);
+        }else{
+            throw new IllegalArgumentException("Movie not found with ID: " + id);
         }
-        if(updateMovie.getType() != null){
-            existMovie.setType(updateMovie.getType());
-        }
-        if(updateMovie.getYear() != null)
-        {
-            existMovie.setYear(updateMovie.getYear());
-        }
-        return movieRepository.save(existMovie);
     }
 }

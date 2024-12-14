@@ -81,7 +81,7 @@ public class MovieController {
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovieById(@PathVariable Long id, @RequestBody Movie updateMovie) {
         try {
-            Movie existMovie = movieService.getMovieByName(updateMovie.getName());
+            Movie existMovie = movieService.getMovieById(id);
             if (existMovie != null) {
                 Movie updatedMovie = this.movieService.updMovieById(id, updateMovie);
                 return new ResponseEntity<>(updatedMovie, HttpStatus.CREATED);
