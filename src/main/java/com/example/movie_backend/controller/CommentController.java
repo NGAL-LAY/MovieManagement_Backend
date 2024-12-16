@@ -24,7 +24,7 @@ public class CommentController {
     
     // Fetch All Comments
     @GetMapping
-    public ResponseEntity<List<Comment>> getAllMovies() {
+    public ResponseEntity<List<Comment>> getAllComments() {
         try {
             List<Comment> comments = commentService.getAllComments();
             if(comments != null){
@@ -57,7 +57,6 @@ public class CommentController {
     // commment register
     @PostMapping
     public ResponseEntity<Comment> registerComment(@RequestBody Comment comment) {
-        System.out.println("Comment backend");
         try {
             Comment regComment = commentService.regComment(comment);
             if(regComment != null){
@@ -75,8 +74,14 @@ public class CommentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCommentById(@PathVariable Long id) {
         try {
+            Comment delComment = this.commentService.getCommentById(id);
+            if(delComment != null){
                 commentService.delCommentById(id);
                 return new ResponseEntity<>(null,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            }
+                
         }catch (Exception e) {
             e.printStackTrace(); 
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
