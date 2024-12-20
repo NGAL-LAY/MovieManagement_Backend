@@ -71,12 +71,13 @@ public class CommentController {
     }
 
     // delete comment
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCommentById(@PathVariable Long id) {
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCommentById(@RequestBody List<Long> ids) {
+        System.out.println("Comments backend, check the follow");
+        System.out.println(ids);
         try {
-            Comment delComment = this.commentService.getCommentById(id);
-            if(delComment != null){
-                commentService.delCommentById(id);
+            if(ids != null){
+                commentService.delCommentById(ids);
                 return new ResponseEntity<>(null,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);

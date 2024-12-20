@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import com.example.movie_backend.entity.Comment;
 import com.example.movie_backend.repository.CommentRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CommentService {
 
@@ -32,8 +34,9 @@ public class CommentService {
     }
 
     // delete comment by id
-    public void delCommentById(Long id)  {
-        commentRepository.deleteById(id);
+    @Transactional
+    public void delCommentById(List<Long> ids)  {
+        commentRepository.deleteByIdIn(ids);
     }
 
 }
