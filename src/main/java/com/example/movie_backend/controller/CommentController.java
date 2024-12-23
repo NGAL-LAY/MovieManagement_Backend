@@ -73,8 +73,6 @@ public class CommentController {
     // delete comment
     @DeleteMapping
     public ResponseEntity<Void> deleteCommentById(@RequestBody List<Long> ids) {
-        System.out.println("Comments backend, check the follow");
-        System.out.println(ids);
         try {
             if(ids != null){
                 commentService.delCommentById(ids);

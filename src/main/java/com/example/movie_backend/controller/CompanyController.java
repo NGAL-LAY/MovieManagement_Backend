@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.movie_backend.service.CompanyService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -45,7 +47,7 @@ public class CompanyController {
     @GetMapping("/{id}")
     public ResponseEntity getCompanyById(@PathVariable Long id) {
         try {
-            Company company = this.companyService.getMovieById(id);
+            Company company = this.companyService.getCompanyById(id);
             if(company != null){
                 return new ResponseEntity<>(company,HttpStatus.OK);
             }else{
@@ -71,5 +73,39 @@ public class CompanyController {
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }    
+    }  
+    
+    // update company
+    @PutMapping("/{id}")
+    public ResponseEntity<Company> updateCompanyById(@PathVariable Long id, @RequestBody Company updateCompany) {
+        try {
+            Company existCompany = companyService.getCompanyById(id);
+            if (existCompany != null) {
+                Company updatedCompany = this.companyService.updCompanyById(id, updateCompany);
+                return new ResponseEntity<>(updatedCompany, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // delete company
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCompanyById(@RequestBody List<Long> ids) {
+        try {
+            if(ids != null){
+                companyService.delCompanyById(ids);
+                return new ResponseEntity<>(null,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            }
+                
+        }catch (Exception e) {
+            e.printStackTrace(); 
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +57,6 @@ public class ActorController {
         }
     }
     
-
     //register actor info
     @PostMapping
     public ResponseEntity <Actor> registerActor(@RequestBody Actor actor){
@@ -69,6 +70,40 @@ public class ActorController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // update actor
+    @PutMapping("/{id}")
+    public ResponseEntity<Actor> updateActorById(@PathVariable Long id, @RequestBody Actor updateActor) {
+        try {
+            Actor existActor = actorService.getActorById(id);
+            if (existActor != null) {
+                Actor updatedActor = this.actorService.updActorById(id, updateActor);
+                return new ResponseEntity<>(updatedActor, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // delete actor
+    @DeleteMapping
+    public ResponseEntity<Void> deleteActorById(@RequestBody List<Long> ids) {
+        try {
+            if(ids != null){
+                actorService.delActorById(ids);
+                return new ResponseEntity<>(null,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            }
+                
+        }catch (Exception e) {
+            e.printStackTrace(); 
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
