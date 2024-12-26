@@ -1,5 +1,4 @@
 package com.example.movie_backend.entity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,11 +14,12 @@ public class User {
     private Long id;
 
     private String name;
-    private String role;
+    private String password;
     private String email;
-    private String country;
-    private String gentle;
+    private String nationality;
     private int age;
+    private String gentle;
+    private String role;
 
     //getter and setter
     public Long getId(){
@@ -38,12 +38,12 @@ public class User {
         this.name = Name;
     }
 
-    public String getRole(){
-        return role;
+    public String getPassword(){
+        return password;
     }
 
-    public void setRole(String Role){
-        this.role = Role;
+    public void setPassword(String Password){
+        this.password = Password;
     }
 
     public String getEmail(){
@@ -54,20 +54,12 @@ public class User {
         this.email = Email;
     }
 
-    public String getCountry(){
-        return country;
+    public String getNationality(){
+        return nationality;
     }
 
-    public void setCountry(String Country){
-        this.country = Country;
-    }
-
-    public String getGentle(){
-        return gentle;
-    }
-
-    public void setGentle(String Gentle){
-        this.gentle = Gentle;
+    public void setNationality(String Nationality){
+        this.nationality = Nationality;
     }
 
     public int getAge(){
@@ -78,8 +70,19 @@ public class User {
         this.age = Age;
     }
 
-    public User orElse(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
+    public String getGentle(){
+        return gentle;
+    }
+
+    public void setGentle(String Gentle){
+        this.gentle = Gentle;
+    }
+
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String Role){
+        this.role = Role;
     }
 }

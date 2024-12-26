@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +70,40 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // update user
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserById(@PathVariable Long id, @RequestBody User updateUser) {
+        try {
+            User existUser = userService.getUserById(id);
+            if (existUser != null) {
+                User updatedUser = this.userService.updUserById(id, updateUser);
+                return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // delete User
+    @DeleteMapping
+    public ResponseEntity<Void> deleteUserById(@RequestBody List<Long> ids) {
+        try {
+            if(ids != null){
+                userService.delUserById(ids);
+                return new ResponseEntity<>(null,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+            }
+                
+        }catch (Exception e) {
+            e.printStackTrace(); 
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

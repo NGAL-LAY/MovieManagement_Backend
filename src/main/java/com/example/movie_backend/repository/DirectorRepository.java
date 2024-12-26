@@ -1,6 +1,5 @@
 package com.example.movie_backend.repository;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.movie_backend.entity.Director;
 
