@@ -15,6 +15,10 @@ public class Movie {
 
     private String name;
     private String type;
+    private String actorids;
+    private Number directorid;
+    private Number companyid;
+    private String language;
     private String year;
 
     // Getters and Setters
@@ -40,6 +44,38 @@ public class Movie {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getActorids() {
+        return actorids;
+    }
+
+    public void setActorids(String Actorids) {
+        this.actorids = Actorids;
+    }
+
+    public Number getDirectorid() {
+        return directorid;
+    }
+
+    public void setDirectorid(Number Directorid) {
+        this.directorid = Directorid;
+    }
+
+    public Number getCompanyid() {
+        return companyid;
+    }
+
+    public void setCompanyid(Number Companyid) {
+        this.companyid = Companyid;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String Language) {
+        this.language = Language;
     }
 
     public String getYear() {

@@ -56,8 +56,19 @@ public class MovieService {
             if(updateMovie.getType() != null){
                 existMovie.setType(updateMovie.getType());
             }
-            if(updateMovie.getYear() != null)
-            {
+            if(updateMovie.getActorids() != null){
+                existMovie.setActorids(updateMovie.getActorids());
+            }
+            if(updateMovie.getDirectorid() != null){
+                existMovie.setDirectorid(updateMovie.getDirectorid());
+            }
+            if(updateMovie.getCompanyid() != null){
+                existMovie.setCompanyid(updateMovie.getCompanyid());
+            }
+            if(updateMovie.getLanguage() != null){
+                existMovie.setLanguage(updateMovie.getLanguage());
+            }
+            if(updateMovie.getYear() != null) {
                 existMovie.setYear(updateMovie.getYear());
             }
             return movieRepository.save(existMovie);
